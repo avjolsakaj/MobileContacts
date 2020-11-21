@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MC.ENTITY\MC.ENTITY.csproj" />
+    <ProjectReference Include="..\MC.IBLL\MC.IBLL.csproj" />
+    <ProjectReference Include="..\MC.IDAL\MC.IDAL.csproj" />
+  </ItemGroup>
+
+</Project>

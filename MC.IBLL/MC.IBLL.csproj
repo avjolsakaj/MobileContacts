@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MC.DTO\MC.DTO.csproj" />
+    <ProjectReference Include="..\MC.ENTITY\MC.ENTITY.csproj" />
+  </ItemGroup>
+
+</Project>
