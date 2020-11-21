@@ -22,10 +22,7 @@ namespace MC.DAL.Repositories.Base
         public virtual async Task<T> AddAsync(T entity, int userId)
         {
             entity.IsActive = true;
-            entity.CreatedDate = DateTime.Now.ToLocalTime();
-            entity.CreatedBy = userId;
-
-            entity.IsDeleted = false;
+            entity.Deleted = false;
 
             var result = await _context.AddAsync(entity).ConfigureAwait(false);
 
@@ -34,28 +31,25 @@ namespace MC.DAL.Repositories.Base
 
         public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _context.Set<T>().Where(x => !x.IsDeleted).Where(predicate).ToListAsync().ConfigureAwait(false);
+            return await _context.Set<T>().Where(x => !x.Deleted).Where(predicate).ToListAsync().ConfigureAwait(false);
         }
 
         public virtual async Task<T> GetAsync(long id)
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(x => !x.IsDeleted && x.Id == id).ConfigureAwait(false);
+            return await _context.Set<T>().FirstOrDefaultAsync(x => !x.Deleted && x.Id == id).ConfigureAwait(false);
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _context.Set<T>().Where(x => !x.IsDeleted).ToListAsync().ConfigureAwait(false);
+            return await _context.Set<T>().Where(x => !x.Deleted).ToListAsync().ConfigureAwait(false);
         }
 
         public virtual async Task<T> UpdateAsync(T entity, int userId)
         {
-            var existing = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == entity.Id && !x.IsDeleted).ConfigureAwait(false);
+            var existing = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == entity.Id && !x.Deleted).ConfigureAwait(false);
 
             if (existing != null)
             {
-                entity.UpdatedDate = DateTime.Now.ToLocalTime();
-                entity.UpdatedBy = userId;
-
                 _context.Entry(existing).CurrentValues.SetValues(entity);
             }
             else
@@ -68,18 +62,13 @@ namespace MC.DAL.Repositories.Base
 
         public virtual async Task<T> DeleteAsync(long id, int userId)
         {
-            var entity = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted).ConfigureAwait(false);
+            var entity = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id && !x.Deleted).ConfigureAwait(false);
 
             if (entity != null)
             {
                 entity.IsActive = false;
 
-                entity.IsDeleted = true;
-                entity.DeletedDate = DateTime.Now.ToLocalTime();
-                entity.DeletedBy = userId;
-
-                entity.UpdatedDate = DateTime.Now.ToLocalTime();
-                entity.UpdatedBy = userId;
+                entity.Deleted = true;
 
                 return entity;
             }
@@ -91,7 +80,7 @@ namespace MC.DAL.Repositories.Base
 
         public virtual async Task<int> CountAsync()
         {
-            return await _context.Set<T>().Where(x => !x.IsDeleted).CountAsync().ConfigureAwait(false);
+            return await _context.Set<T>().Where(x => !x.Deleted).CountAsync().ConfigureAwait(false);
         }
 
         public async Task<int> SaveChangesAsync()

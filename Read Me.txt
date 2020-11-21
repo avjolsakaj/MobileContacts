@@ -6,4 +6,4 @@ Scaffold-DbContext "Data Source=PC-A-SAKAJ;Initial Catalog=MC;Integrated Securit
 
 To get specific object from database schema use the following script in package manager console.
 
-Scaffold-DbContext "Data Source=PC-A-SAKAJ;Initial Catalog=MC;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models/DBO" -ContextDir "Context/DBO" -Context "MCContext" -UseDatabaseNames -Tables "Test" -Verbose -Force
+Scaffold-DbContext "Data Source=PC-A-SAKAJ;Initial Catalog=MC;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models/DBO" -ContextDir "Context/DBO" -Context "MCContext" -UseDatabaseNames -Tables "Person","Contact" -Verbose -Force

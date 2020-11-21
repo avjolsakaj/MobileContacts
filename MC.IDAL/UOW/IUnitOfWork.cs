@@ -17,6 +17,10 @@ namespace MC.IDAL.UOW
 
         // TODO: Add other repositories
 
-        ITestRepository TestRepository { get; }
+        IPersonRepository PersonRepository { get; }
+
+        IContactRepository ContactRepository { get; }
+
+        IContactTypeRepository ContactTypeRepository { get; }
     }
 }

@@ -15,7 +15,7 @@ namespace MC.BLL.Tests.Services
     {
         private readonly Mock<IUnitOfWork> _uofMock;
         private readonly Mock<ITestRepository> _repoMock;
-        private readonly Mock<ITestMapper> _mapperMock;
+        private readonly Mock<IPersonMapper> _mapperMock;
         private readonly ITestService _sut;
         private readonly TestDTO _testDTO;
         private readonly Test _test;
@@ -35,7 +35,7 @@ namespace MC.BLL.Tests.Services
 
             _uofMock = new Mock<IUnitOfWork>();
             _ = _uofMock.SetupAllProperties();
-            _mapperMock = new Mock<ITestMapper>();
+            _mapperMock = new Mock<IPersonMapper>();
             _ = _mapperMock.SetupAllProperties();
 
             _uofMock.SetupGet(uof => uof.TestRepository)

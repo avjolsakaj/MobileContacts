@@ -2,6 +2,6 @@
 {
     public interface IBaseDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 }

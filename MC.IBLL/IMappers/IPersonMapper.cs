@@ -3,8 +3,8 @@ using MC.ENTITY.Models.DBO;
 
 namespace MC.IBLL.IMappers
 {
-    public interface ITestMapper
+    public interface IPersonMapper
     {
-        TestDTO? Convert(Test? model);
+        PersonDTO? Convert(Person? model);
     }
 }

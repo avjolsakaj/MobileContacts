@@ -80,7 +80,15 @@ namespace MC.DAL.UOW
             }
         }
 
-        private ITestRepository? _testRepository;
-        public ITestRepository TestRepository => _testRepository ??= new TestRepository(_context);
+        private IPersonRepository? _personRepository;
+
+        public IPersonRepository PersonRepository => _personRepository ??= new PersonRepository(_context);
+
+        private IContactRepository? _contactRepository;
+
+        public IContactRepository ContactRepository => _contactRepository ??= new ContactRepository(_context);
+
+        private IContactTypeRepository? _contactTypeRepository;
+        public IContactTypeRepository ContactTypeRepository => _contactTypeRepository ??= new ContactTypeRepository(_context);
     }
 }
