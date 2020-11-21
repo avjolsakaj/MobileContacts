@@ -5,6 +5,10 @@ namespace MC.IBLL.IMappers
 {
     public interface IPersonMapper
     {
-        PersonDTO? Convert(Person? model);
+        PersonDetailsDTO? Convert(Person? model);
+
+        Person? Convert(EditPersonDTO? model);
+
+        Person? Convert(CreatePersonDTO? model);
     }
 }

@@ -45,5 +45,18 @@ namespace MC.DAL.Repositories
 
             return await person.AsNoTracking().ToListAsync().ConfigureAwait(false);
         }
+
+        public override async Task<Person> GetAsync(int id)
+        {
+            return await _context.Person
+                .Include(x=> x.Contact)
+                .ThenInclude(x=> x.ContactType)
+                .FirstOrDefaultAsync(x => !x.Deleted && x.Id == id).ConfigureAwait(false);
+        }
+
+        public async Task<bool> GetAsync(string? firstName, string? lastName)
+        {
+            return await _context.Person.AnyAsync(x => x.FirstName == firstName && x.LastName == lastName);
+        }
     }
 }

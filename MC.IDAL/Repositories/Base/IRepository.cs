@@ -8,17 +8,19 @@ namespace MC.IDAL.Repositories.Base
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<T> AddAsync(T entity, int userId);
+        Task<T?> AddAsync(T? entity);
 
-        Task<T> UpdateAsync(T entity, int userId);
+        Task<bool> AddRangeAsync(List<T> entity);
 
-        Task<T> GetAsync(long id);
+        Task<T> UpdateAsync(T entity);
+
+        Task<T> GetAsync(int id);
 
         Task<IEnumerable<T>> GetAllAsync();
 
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
-        Task<T> DeleteAsync(long id, int userId);
+        Task<T> DeleteAsync(int id);
 
         Task<int> CountAsync();
 

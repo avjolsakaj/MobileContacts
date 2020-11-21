@@ -19,8 +19,13 @@ namespace MC.DAL.Repositories.Base
             _context = context;
         }
 
-        public virtual async Task<T> AddAsync(T entity, int userId)
+        public virtual async Task<T?> AddAsync(T? entity)
         {
+            if (entity is null)
+            {
+                return null;
+            }
+
             entity.IsActive = true;
             entity.Deleted = false;
 
@@ -29,12 +34,25 @@ namespace MC.DAL.Repositories.Base
             return result.Entity;
         }
 
+        public virtual async Task<bool> AddRangeAsync(List<T> entity)
+        {
+            foreach (var item in entity)
+            {
+                item.IsActive = true;
+                item.Deleted = false;
+            }
+
+            await _context.AddRangeAsync(entity).ConfigureAwait(false);
+
+            return true;
+        }
+
         public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(x => !x.Deleted).Where(predicate).ToListAsync().ConfigureAwait(false);
         }
 
-        public virtual async Task<T> GetAsync(long id)
+        public virtual async Task<T> GetAsync(int id)
         {
             return await _context.Set<T>().FirstOrDefaultAsync(x => !x.Deleted && x.Id == id).ConfigureAwait(false);
         }
@@ -44,23 +62,21 @@ namespace MC.DAL.Repositories.Base
             return await _context.Set<T>().Where(x => !x.Deleted).ToListAsync().ConfigureAwait(false);
         }
 
-        public virtual async Task<T> UpdateAsync(T entity, int userId)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
             var existing = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == entity.Id && !x.Deleted).ConfigureAwait(false);
 
-            if (existing != null)
-            {
-                _context.Entry(existing).CurrentValues.SetValues(entity);
-            }
-            else
+            if (existing is null)
             {
                 throw new KeyNotFoundException($"Can't find object {typeof(T)}, with id {entity.Id}");
             }
 
+            _context.Entry(existing).CurrentValues.SetValues(entity);
+
             return existing;
         }
 
-        public virtual async Task<T> DeleteAsync(long id, int userId)
+        public virtual async Task<T> DeleteAsync(int id)
         {
             var entity = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id && !x.Deleted).ConfigureAwait(false);
 
@@ -74,7 +90,7 @@ namespace MC.DAL.Repositories.Base
             }
             else
             {
-                throw new KeyNotFoundException($"Can't find object {typeof(T)}, with id {id}");
+                return null;
             }
         }
 

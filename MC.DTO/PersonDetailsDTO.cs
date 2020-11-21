@@ -2,7 +2,7 @@
 
 namespace MC.DTO
 {
-    public class PersonDTO : IBaseDTO
+    public class PersonDetailsDTO : IBaseDTO
     {
         public int Id { get; set; }
 
@@ -12,6 +12,6 @@ namespace MC.DTO
 
         public string? MiddleName { get; set; }
 
-        public List<ContactDTO?>? Contact { get; set; }
+        public List<ContactDetailsDTO?>? Contacts { get; set; }
     }
 }

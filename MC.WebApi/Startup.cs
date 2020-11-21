@@ -124,7 +124,8 @@ namespace MC.WebApi
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             _ = app.UseSwagger();
-            //app.UseSwagger(c => c.SerializeAsV2 = true);
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.) specifying the Swagger
             // JSON endpoint.

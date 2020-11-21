@@ -14,20 +14,49 @@ namespace MC.BLL.Mappers
             _contactMapper = contactMapper;
         }
 
-        public PersonDTO? Convert(Person? model)
+        public PersonDetailsDTO? Convert(Person? model)
         {
             if (model == null)
             {
                 return null;
             }
 
-            return new PersonDTO
+            return new PersonDetailsDTO
             {
                 Id = model.Id,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 MiddleName = model.MiddleName,
-                Contact = model.Contact.Select(_contactMapper.Convert).ToList()
+                Contacts = model.Contact.Select(_contactMapper.Convert).ToList()
+            };
+        }
+
+        public Person? Convert(EditPersonDTO? model)
+        {
+            return model == null
+                ? null
+                : new Person
+                {
+                    Id = model.Id,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    MiddleName = model.MiddleName
+                };
+        }
+
+        public Person? Convert(CreatePersonDTO? model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+
+            return new Person
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                MiddleName = model.MiddleName,
+                Contact = model.Contacts?.ConvertAll(_contactMapper.Convert)
             };
         }
     }
