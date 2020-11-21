@@ -2,7 +2,7 @@
 
 Requirements:
 
-· Develop a reusable library in C# to manage phone books for users. No user interface is required, only an API to create, delete and edit phone book entries.
+· Develop a reusable library in C# to manage phone books for users. No user interface is required, only an API to create, delete and edit phone book entries. DONE (CRUD)
 
 · Each entry would contain: name (first and last), type (Work, Cellphone or Home) and number. DONE (Person, ContactType, Contact)
 
@@ -12,6 +12,23 @@ Requirements:
 
 · In addition to creating/editing/deleting, the library also needs to support iterating over the list in alphabetical order or by the first or last name of each entry. DONE (filterValue, orderBy, orderAsc)
 
-· Create unit tests in your project (preferably with NUnit).
+· Create unit tests in your project (preferably with NUnit). DONE (xUnit)
 
 · Use Thread-safety of the library as a feature and XML documentation of the API. DONE (Using swagger and async-await)
+
+
+SQL:
+
+INSERT INTO [dbo].[ContactType]
+           ([Code]
+           ,[Value]
+           ,[IsActive]
+           ,[Deleted])
+     VALUES
+	('MOB',	'Mobile	','True',	'False',
+	'WRK',	'Work','True',	'False',
+	'HOM',	'Home','True',	'False')
+GO
+
+
+
