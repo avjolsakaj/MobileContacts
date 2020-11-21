@@ -164,7 +164,7 @@ namespace MC.BLL.Services
         {
             var result = await _unitOfWork.ContactTypeRepository.GetAllAsync().ConfigureAwait(false);
 
-            return result.ToList().ConvertAll(_contactTypeMapper.Convert);
+            return result?.ToList()?.ConvertAll(_contactTypeMapper.Convert);
         }
     }
 }
