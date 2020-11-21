@@ -1,0 +1,9 @@
+# Scaffolding
+
+To get all objects from database schema use the following script in package manager console. This project should be the startup project. To get all the tables separated by schema.
+
+Scaffold-DbContext "Data Source=PC-A-SAKAJ;Initial Catalog=MC;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models/DBO" -ContextDir "Context/DBO" -Context "MCContext" -UseDatabaseNames -Schema "DBO" -Verbose -Force
+
+To get specific object from database schema use the following script in package manager console.
+
+Scaffold-DbContext "Data Source=PC-A-SAKAJ;Initial Catalog=MC;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models/DBO" -ContextDir "Context/DBO" -Context "MCContext" -UseDatabaseNames -Tables "Test" -Verbose -Force
